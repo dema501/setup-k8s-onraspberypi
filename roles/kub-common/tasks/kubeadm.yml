@@ -1,0 +1,14 @@
+---
+- name: Add an apt key to install kubernetis
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+
+- name: Add apt source
+  template: src=kubernetes.list.j2 dest=/etc/apt/sources.list.d/kubernetes.list
+
+- name: Update repositories cache and install "kubeadm" package
+  apt:
+    name: kubeadm
+    state: present
+    update_cache: yes

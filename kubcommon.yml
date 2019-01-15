@@ -1,0 +1,8 @@
+---
+## Web Servers
+- hosts: kub-last
+  roles:
+    - kub-common
+  sudo: yes
+  gather_facts: yes
+

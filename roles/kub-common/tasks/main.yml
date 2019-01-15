@@ -1,0 +1,5 @@
+---
+- include: prepareraspberry.yml
+- include: docker.yml
+- include: kubeadm.yml
+- include: reboot.yml

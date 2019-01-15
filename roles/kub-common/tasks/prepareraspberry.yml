@@ -1,0 +1,20 @@
+---
+- name: Disable Swap - "Kubernetes version 3.3, all Kubernetes masters and nodes are expected to have swap disabled."
+  executable: 'dphys-swapfile swapoff'
+  args:
+    removes: /sbin/dphys-swapfile
+
+- name: Uninstall Swap tool
+  apt:
+    name: dphys-swapfile
+    state: absent
+
+- name: Backup /boot/cmdline.txt
+  command: 'cp /boot/cmdline.txt /boot/cmdline_backup.txt'
+  args:
+    creates: /boot/cmdline_backup.txt
+
+- name: Adding " cgroup_enable=cpuset cgroup_enable=memory" to /boot/cmdline.txt
+  shell: 'echo "$(head -n1 /boot/cmdline.txt) cgroup_enable=cpuset cgroup_enable=memory" | tee /boot/cmdline.txt'
+  args:
+    creates: /boot/cmdline_backup.txt
