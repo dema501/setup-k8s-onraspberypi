@@ -9,6 +9,9 @@
     name: dphys-swapfile
     state: absent
 
+- name: Remove startup script
+  shell: 'update-rc.d dphys-swapfile remove'
+
 - name: Backup /boot/cmdline.txt
   command: 'cp /boot/cmdline.txt /boot/cmdline_backup.txt'
   args:
